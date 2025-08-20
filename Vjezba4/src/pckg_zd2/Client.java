@@ -15,7 +15,7 @@ public class Client {
         PaymentServiceInt depFX = new DepositMoney(fxa, 250.5f);
         app.performTransaction(depFX);
         app.undoLastTransaction();
-        app.redoLastTransaction();
+        app.redo();
 
         PaymentServiceInt depCHK = new DepositMoney(chk, 500f);
         app.performTransaction(depCHK);

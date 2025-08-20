@@ -1,6 +1,7 @@
 package pckg_zd2;
 
 public class CheckingAccount extends Account{
+    private static final long serialVersionUID = 1;
 
     private float amount;
 

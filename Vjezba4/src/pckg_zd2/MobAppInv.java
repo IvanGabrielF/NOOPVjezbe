@@ -6,31 +6,36 @@ public class MobAppInv {
     private Stack<PaymentServiceInt> undoStack = new Stack<>();
     private Stack<PaymentServiceInt> redoStack = new Stack<>();
 
-    public void performTransaction(PaymentServiceInt payment) {
-        payment.execute();
-        undoStack.push(payment);
+    public String performTransaction(PaymentServiceInt cmd) {
+        cmd.execute();
+        undoStack.push(cmd);
         redoStack.clear();
+        return "Executed!";
+
     }
 
-    public void undoLastTransaction() {
+    public String undoLastTransaction() {
         if (undoStack.isEmpty()) {
             System.out.println("Undostack is empty!");
-            return;
+            PaymentServiceInt c = undoStack.pop();
+            c.undo();
+            redoStack.push(c);
+            return "Undone."; //chatgpt
         }
         PaymentServiceInt p = undoStack.pop();
         p.undo();
         redoStack.push(p);
+        return null;
     }
 
-    public void redoLastTransaction() {
-        if (redoStack.isEmpty()) {
-            System.out.println("Redo stack iss empty!");
-            return;
-        }
-        PaymentServiceInt p = redoStack.pop();
-        p.redo();
-        undoStack.push(p);
+    public String redo() {
+        if (redoStack.isEmpty()) return "Redo stack is empty!";
+        PaymentServiceInt c = redoStack.pop();
+        c.redo();
+        undoStack.push(c);
+        return "Redone.";
     }
+
 
 
 }

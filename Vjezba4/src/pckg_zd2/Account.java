@@ -1,6 +1,10 @@
 package pckg_zd2;
 
-public abstract class Account {
+import java.io.Serializable;
+
+public abstract class Account implements Serializable {
+
+    private static final long serialVersionUID = 1;
 
     protected int id;
     protected String name;
